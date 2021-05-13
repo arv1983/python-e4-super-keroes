@@ -7,8 +7,7 @@ def find_all_characters(filename):
     list = []
     with open(filename, "r") as f:
         for row in DictReader(f):
-            list.append(row)
-
+            list.append({'id': int(row['id']), 'name': row['name'],  'intelligence': int(row['intelligence']), 'power': int(row['power']), 'strength': int(row['strength']), 'agility': int(row['agility']) })
         if not list:
             return []
         else:
@@ -46,3 +45,4 @@ def create_character(filename, **kwargs):
     return kwargs
     
 
+print(find_all_characters('testando.csv'))
