@@ -15,17 +15,9 @@ def find_all_characters(filename):
 
 def find_character_by_id(filename, character_id):
     heros = find_all_characters(filename)
-
-    # print(heros)
     return [hero for hero in heros if hero['id'] == character_id][0]
 
-    # with open(filename, "r+") as f:
-    #     open_file = f.readlines()
-    #     f.close()
-    #     try:
-    #         return dict(zip(open_file[0].split(','), open_file[character_id].split(',')))
-    #     except:
-    #         return None
+
         
 def create_character(filename, **kwargs):
     headers = ['id', 'name', 'intelligence', 'power', 'strength', 'agility']
@@ -48,16 +40,3 @@ def create_character(filename, **kwargs):
         f.close()
     return kwargs[0]
     
-# print(find_all_characters('teste.json'))
-# print(find_character_by_id('teste.json', 1))
-# print(create_character('exclui.json', **new)))
-
-new = {
-    'name': 'Batman',
-    'intelligence': 7,
-    'power': 4,
-    'strength': 6,
-    'agility': 8
-}
-
-print(create_character('testando.csv', **new))
