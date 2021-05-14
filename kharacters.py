@@ -4,24 +4,28 @@ import os.path
 
 
 def find_all_characters(filename):
-    list = []
-    with open(filename, "r") as f:
-        for row in DictReader(f):
-            list.append({'id': int(row['id']), 'name': row['name'],  'intelligence': int(row['intelligence']), 'power': int(row['power']), 'strength': int(row['strength']), 'agility': int(row['agility']) })
-        if not list:
-            return []
-        else:
-            return list
-
+    list_characters = []
+    try:
+        with open(filename, "r") as f:
+            for row in DictReader(f):
+                list_characters.append({'id': int(row['id']), 'name': row['name'],  'intelligence': int(row['intelligence']), 'power': int(row['power']), 'strength': int(row['strength']), 'agility': int(row['agility']) })
+                return list_characters
+    except FileNotFoundError:
+        return []
 
 def find_character_by_id(filename, character_id):
-    with open(filename, "r+") as f:
-        open_file = f.readlines()
-        f.close()
-        try:
-            return dict(zip(open_file[0].split(','), open_file[character_id].split(',')))
-        except:
-            return None
+    heros = find_all_characters(filename)
+
+    # print(heros)
+    return [hero for hero in heros if hero['id'] == character_id][0]
+
+    # with open(filename, "r+") as f:
+    #     open_file = f.readlines()
+    #     f.close()
+    #     try:
+    #         return dict(zip(open_file[0].split(','), open_file[character_id].split(',')))
+    #     except:
+    #         return None
         
 def create_character(filename, **kwargs):
     headers = ['id', 'name', 'intelligence', 'power', 'strength', 'agility']
@@ -42,7 +46,18 @@ def create_character(filename, **kwargs):
         writer = DictWriter(f, fieldnames=headers)
         writer.writerows(kwargs)
         f.close()
-    return kwargs
+    return kwargs[0]
     
+# print(find_all_characters('teste.json'))
+# print(find_character_by_id('teste.json', 1))
+# print(create_character('exclui.json', **new)))
 
-print(find_all_characters('testando.csv'))
+new = {
+    'name': 'Batman',
+    'intelligence': 7,
+    'power': 4,
+    'strength': 6,
+    'agility': 8
+}
+
+print(create_character('testando.csv', **new))
